@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: mwets
+      changes:
+        - insert:
+            tableName: activity
+            columns:
+              - column:
+                  name: type
+                  value: SUPPLIER_ACTIVITY
+              - column:
+                  name: title
+                  value: "New York City: Madison Square Garden Guided Arena Tour"
+              - column:
+                  name: url
+                  value: "/new-york-city-l59/new-york-madison-square-garden-all-access-tour-ticket-t179501/"
+              - column:
+                  name: activity_type_id
+                  value: 6
+              - column:
+                  name: summary
+                  value: "Experience Madison Square Garden like never before. On this new behind-the-scenes tour of the world's most famous arena, learn about iconic moments that have made sports and entertainment history."

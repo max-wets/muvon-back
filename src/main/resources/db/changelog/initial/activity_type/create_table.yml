@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: mwets
+      changes:
+        - createTable:
+            tableName: activity_type
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: key
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: label
+                  type: varchar(50)
+                  constraints:
+                    nullable: false

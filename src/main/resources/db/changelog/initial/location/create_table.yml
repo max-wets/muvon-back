@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: mwets
+      changes:
+        - createTable:
+            tableName: location
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: url_path
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

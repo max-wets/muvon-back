@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: mwets
+      changes:
+        - insert:
+            tableName: location
+            columns:
+              - column:
+                  name: name
+                  value: New York City
+              - column:
+                  name: url_path
+                  value: /new-york-city-l1/

@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: mwets
+      changes:
+        - createTable:
+            tableName: activity
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: url
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: activity_type_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    referencedTableName: activity_type
+                    referencedColumnNames: id
+                    foreignKeyName: activity_type_fkey
+                    validateForeignKey: true
+              - column:
+                  name: summary
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

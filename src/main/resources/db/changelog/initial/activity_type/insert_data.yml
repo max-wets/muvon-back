@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: mwets
+      changes:
+        - insert:
+            tableName: activity_type
+            columns:
+              - column:
+                  name: key
+                  value: GUIDED_TOUR
+              - column:
+                  name: label
+                  value: Guided Tour
+        - insert:
+            tableName: activity_type
+            columns:
+              - column:
+                  name: key
+                  value: DAY_TRIP
+              - column:
+                  name: label
+                  value: Day trip
+        - insert:
+            tableName: activity_type
+            columns:
+              - column:
+                  name: key
+                  value: WORKSHOP_CLASS
+              - column:
+                  name: label
+                  value: Workshop or class
+        - insert:
+            tableName: activity_type
+            columns:
+              - column:
+                  name: key
+                  value: ADVENTURE
+              - column:
+                  name: label
+                  value: Adventure
+        - insert:
+            tableName: activity_type
+            columns:
+              - column:
+                  name: key
+                  value: WATER_ACTIVITY
+              - column:
+                  name: label
+                  value: Water activity
+        - insert:
+            tableName: activity_type
+            columns:
+              - column:
+                  name: key
+                  value: ENTRY_TICKET
+              - column:
+                  name: label
+                  value: Entry ticket

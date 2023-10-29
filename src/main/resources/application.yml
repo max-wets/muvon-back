@@ -1,0 +1,12 @@
+spring:
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog.yml
+  docker:
+    compose:
+      lifecycle-management: none
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      format_sql: true
+    show-sql: true
