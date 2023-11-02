@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 5
+      id: 9
       author: mwets
       changes:
         - createTable:
@@ -36,6 +36,15 @@ databaseChangeLog:
                     referencedTableName: activity_type
                     referencedColumnNames: id
                     foreignKeyName: activity_type_fkey
+                    validateForeignKey: true
+              - column:
+                  name: additional_info_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+                    referencedTableName: additional_info
+                    referencedColumnNames: id
+                    foreignKeyName: additional_info_fkey
                     validateForeignKey: true
               - column:
                   name: summary

@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: mwets
+      changes:
+        - createTable:
+            tableName: highlight
+            columns:
+              - column:
+                  name: additional_info_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 6
+      author: mwets
+      changes:
+        - createTable:
+            tableName: additional_info
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)
+                  constraints:
+                    nullable: false

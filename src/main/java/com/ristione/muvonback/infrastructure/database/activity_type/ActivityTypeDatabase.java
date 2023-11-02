@@ -1,4 +1,4 @@
-package com.ristione.muvonback.infrastructure.activity_type;
+package com.ristione.muvonback.infrastructure.database.activity_type;
 
 import com.ristione.muvonback.domain.entities.activity_type.ActivityType;
 import jakarta.persistence.*;
