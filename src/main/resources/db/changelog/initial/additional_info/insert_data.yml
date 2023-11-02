@@ -4,19 +4,25 @@ databaseChangeLog:
       author: mwets
       changes:
         - insert:
-            tableName: highlight
+            tableName: additional_info_highlight
             columns:
               - column:
                   name: additional_info_id
                   value: 1
               - column:
+                  name: index_id
+                  value: 0
+              - column:
                   name: description
                   value: "Learn about The Garden's nearly 150-year history from an expert tour guide who knows every iconic story and defining moment"
         - insert:
-            tableName: highlight
+            tableName: additional_info_highlight
             columns:
               - column:
                   name: additional_info_id
+                  value: 1
+              - column:
+                  name: index_id
                   value: 1
               - column:
                   name: description

@@ -4,11 +4,16 @@ databaseChangeLog:
       author: mwets
       changes:
         - createTable:
-            tableName: highlight
+            tableName: additional_info_highlight
             columns:
               - column:
                   name: additional_info_id
                   type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: index_id
+                  type: int
                   constraints:
                     nullable: false
               - column:
