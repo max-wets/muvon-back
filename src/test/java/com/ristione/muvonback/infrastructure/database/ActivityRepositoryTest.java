@@ -1,7 +1,7 @@
 package com.ristione.muvonback.infrastructure.database;
 
 import com.ristione.muvonback.domain.entities.activity.ActivitySourceType;
-import com.ristione.muvonback.domain.entities.activity_type.ActivityType;
+import com.ristione.muvonback.domain.entities.activity_type.ActivityTypeEnum;
 import com.ristione.muvonback.infrastructure.database.activity.ActivityDatabase;
 import com.ristione.muvonback.infrastructure.database.activity.ActivityRepository;
 import com.ristione.muvonback.infrastructure.database.activity_type.ActivityTypeDatabase;
@@ -41,8 +41,8 @@ public class ActivityRepositoryTest {
     public void setUp() {
         ActivityTypeDatabase activityType =
                 ActivityTypeDatabase.builder()
-                        .key(ActivityType.GUIDED_TOUR)
-                        .label(ActivityType.GUIDED_TOUR.getLabel())
+                        .key(ActivityTypeEnum.GUIDED_TOUR)
+                        .label(ActivityTypeEnum.GUIDED_TOUR.getLabel())
                         .build();
         AdditionalInfoDatabase additionalInfo =
                 AdditionalInfoDatabase.builder()
@@ -67,7 +67,7 @@ public class ActivityRepositoryTest {
 
         assertNotNull(savedActivity.getId());
         assertNotNull(savedActivity.getAdditionalInfo().getId());
-        assertEquals(savedActivity.getActivityType().getKey(), ActivityType.GUIDED_TOUR);
+        assertEquals(savedActivity.getActivityType().getKey(), ActivityTypeEnum.GUIDED_TOUR);
         assertEquals(2, savedActivity.getAdditionalInfo().getHighlights().size());
     }
 

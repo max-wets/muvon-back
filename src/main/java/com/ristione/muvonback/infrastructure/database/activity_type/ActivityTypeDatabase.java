@@ -1,6 +1,6 @@
 package com.ristione.muvonback.infrastructure.database.activity_type;
 
-import com.ristione.muvonback.domain.entities.activity_type.ActivityType;
+import com.ristione.muvonback.domain.entities.activity_type.ActivityTypeEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class ActivityTypeDatabase {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private ActivityType key;
+    private ActivityTypeEnum key;
 
     private String label;
 }

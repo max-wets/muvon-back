@@ -7,4 +7,8 @@ public enum ActivitySourceType {
     SUPPLIER_ACTIVITY("supplier_activity");
 
     final String source;
+
+    public String getSource() {
+        return source;
+    }
 }

@@ -1,18 +1,17 @@
 package com.ristione.muvonback.domain.entities.activity_type;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Getter
 @AllArgsConstructor
-public enum ActivityType {
-    GUIDED_TOUR("guidedTour", "Guided Tour"),
-    DAY_TRIP("dayTrip", "Day trip"),
-    WORKSHOP_CLASS("workshopOrClass", "Workshop or class"),
-    ADVENTURE("adventure", "Adventure"),
-    WATER_ACTIVITY("waterActivity", "Water activity"),
-    ENTRY_TICKET("entryTicket", "Entry ticket");
+public class ActivityType {
+    @Enumerated(EnumType.STRING)
+    private ActivityTypeEnum key;
 
-    private final String key;
-    private final String label;
+    private String label;
 }
