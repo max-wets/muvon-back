@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActivityTypeMapper {
 
-    public static ActivityType toActivityType(ActivityTypeDatabase activityTypeDatabase) {
+    public ActivityType toActivityType(ActivityTypeDatabase activityTypeDatabase) {
         return ActivityType.builder()
                 .key(activityTypeDatabase.getKey())
                 .label(activityTypeDatabase.getLabel())

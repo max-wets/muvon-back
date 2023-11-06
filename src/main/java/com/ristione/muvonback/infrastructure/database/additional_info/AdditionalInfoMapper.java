@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AdditionalInfoMapper {
 
-    public static AdditionalInfo toAdditionalInfo(AdditionalInfoDatabase additionalInfoDatabase) {
+    public AdditionalInfo toAdditionalInfo(AdditionalInfoDatabase additionalInfoDatabase) {
         return AdditionalInfo.builder()
                 .description(additionalInfoDatabase.getDescription())
                 .highlights(additionalInfoDatabase.getHighlights())

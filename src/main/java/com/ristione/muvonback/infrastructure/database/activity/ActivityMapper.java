@@ -3,10 +3,16 @@ package com.ristione.muvonback.infrastructure.database.activity;
 import com.ristione.muvonback.domain.entities.activity.Activity;
 import com.ristione.muvonback.infrastructure.database.activity_type.ActivityTypeMapper;
 import com.ristione.muvonback.infrastructure.database.additional_info.AdditionalInfoMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class ActivityMapper {
+
+    private final ActivityTypeMapper activityTypeMapper;
+
+    private final AdditionalInfoMapper additionalInfoMapper;
 
     public Activity toActivity(ActivityDatabase activityDatabase) {
 
@@ -15,8 +21,8 @@ public class ActivityMapper {
                 .type(activityDatabase.getType())
                 .title(activityDatabase.getTitle())
                 .url(activityDatabase.getUrl())
-                .activityType(ActivityTypeMapper.toActivityType(activityDatabase.getActivityType()))
-                .additionalInfo(AdditionalInfoMapper.toAdditionalInfo(activityDatabase.getAdditionalInfo()))
+                .activityType(activityTypeMapper.toActivityType(activityDatabase.getActivityType()))
+                .additionalInfo(additionalInfoMapper.toAdditionalInfo(activityDatabase.getAdditionalInfo()))
                 .summary(activityDatabase.getSummary())
                 .build();
     }

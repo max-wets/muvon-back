@@ -11,4 +11,13 @@ public enum ActivitySourceType {
     public String getSource() {
         return source;
     }
+
+    public static ActivitySourceType getValueBySource(String source) {
+        for (ActivitySourceType sourceType : ActivitySourceType.values()) {
+            if (sourceType.getSource().equals(source)) {
+                return sourceType;
+            }
+        }
+        throw new IllegalArgumentException("Enum value not found for source: " + source);
+    }
 }

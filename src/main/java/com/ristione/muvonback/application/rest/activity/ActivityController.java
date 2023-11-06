@@ -1,8 +1,13 @@
 package com.ristione.muvonback.application.rest.activity;
 
+import com.ristione.muvonback.application.rest.ResponseApi;
+import com.ristione.muvonback.application.rest.ResponseApiMapper;
 import com.ristione.muvonback.application.rest.activity.api.ActivityApi;
+import com.ristione.muvonback.application.rest.activity.input.ActivityInput;
 import com.ristione.muvonback.application.rest.activity.mapper.ActivityApiMapper;
+import com.ristione.muvonback.domain.entities.CreationResultObject;
 import com.ristione.muvonback.domain.entities.activity.Activity;
+import com.ristione.muvonback.domain.use_cases.activity.CreateActivity;
 import com.ristione.muvonback.domain.use_cases.activity.RetrieveActivity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,13 +19,9 @@ import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/v1/activities")
@@ -30,6 +31,8 @@ public class ActivityController {
 
     private final RetrieveActivity retrieveActivity;
     private final ActivityApiMapper activityApiMapper;
+    private final CreateActivity createActivity;
+    private final ResponseApiMapper responseApiMapper;
 
     @GetMapping("/{activity-id}")
     @Operation(summary = "Get a complete activity card from its ID")
@@ -54,6 +57,26 @@ public class ActivityController {
             return ResponseEntity.status(OK).body(activityApi);
         } catch (IllegalArgumentException | ClassNotFoundException ex) {
             return ResponseEntity.status(NOT_FOUND).build();
+        }
+    }
+
+    @PostMapping
+    @Operation(summary = "Create a new activity card")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "The activity card has been successfully created"
+            ),
+            @ApiResponse(responseCode = "400", description = "The activity content is not valid")
+    })
+    public ResponseEntity<ResponseApi> createActivity(@RequestBody ActivityInput activityInput) {
+        CreationResultObject<Activity> result = createActivity.run(activityInput);
+        ResponseApi responseApi = responseApiMapper.toResponseApi(result);
+
+        if (responseApi.hasErrors()) {
+            return ResponseEntity.status(BAD_REQUEST).body(responseApi);
+        } else {
+            return ResponseEntity.status(CREATED).body(responseApi);
         }
     }
 }

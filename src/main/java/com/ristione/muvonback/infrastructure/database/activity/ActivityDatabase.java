@@ -27,7 +27,7 @@ public class ActivityDatabase {
     private String title;
     private String url;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "activity_type_id")
     private ActivityTypeDatabase activityType;
 
