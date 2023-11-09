@@ -10,4 +10,6 @@ public interface ActivityPersistence {
     Optional<Activity> findActivity(Long activityId);
 
     Activity create(ActivityDatabase activityDatabase);
+
+    void delete(Long activityId);
 }

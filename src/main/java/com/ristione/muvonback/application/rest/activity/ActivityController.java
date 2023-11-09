@@ -5,9 +5,12 @@ import com.ristione.muvonback.application.rest.ResponseApiMapper;
 import com.ristione.muvonback.application.rest.activity.api.ActivityApi;
 import com.ristione.muvonback.application.rest.activity.input.ActivityInput;
 import com.ristione.muvonback.application.rest.activity.mapper.ActivityApiMapper;
+import com.ristione.muvonback.application.rest.activity.mapper.ResponseApiActivityMapper;
 import com.ristione.muvonback.domain.entities.CreationResultObject;
 import com.ristione.muvonback.domain.entities.activity.Activity;
+import com.ristione.muvonback.domain.entities.activity.ActivityWriteResult;
 import com.ristione.muvonback.domain.use_cases.activity.CreateActivity;
+import com.ristione.muvonback.domain.use_cases.activity.DeleteActivity;
 import com.ristione.muvonback.domain.use_cases.activity.RetrieveActivity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,7 +35,9 @@ public class ActivityController {
     private final RetrieveActivity retrieveActivity;
     private final ActivityApiMapper activityApiMapper;
     private final CreateActivity createActivity;
+    private final DeleteActivity deleteActivity;
     private final ResponseApiMapper responseApiMapper;
+    private final ResponseApiActivityMapper responseApiActivityMapper;
 
     @GetMapping("/{activity-id}")
     @Operation(summary = "Get a complete activity card from its ID")
@@ -77,6 +82,28 @@ public class ActivityController {
             return ResponseEntity.status(BAD_REQUEST).body(responseApi);
         } else {
             return ResponseEntity.status(CREATED).body(responseApi);
+        }
+    }
+
+    @DeleteMapping("/{activity-id}")
+    @Operation(summary = "Delete an activity")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "The activity card has been successfully deleted"
+            ),
+            @ApiResponse(responseCode = "404", description = "The activity could not be found")
+    })
+    public ResponseEntity<ResponseApi> deleteActivity(
+            @PathVariable("activity-id") @Parameter(required = true) Long activityId
+    ) {
+        ActivityWriteResult activityWriteResult = deleteActivity.run(activityId);
+        ResponseApi activityWriteResultApi = responseApiActivityMapper.toResponseApi(activityWriteResult);
+
+        if (activityWriteResultApi.hasErrors()) {
+            return ResponseEntity.status(BAD_REQUEST).body(activityWriteResultApi);
+        } else {
+            return ResponseEntity.ok(activityWriteResultApi);
         }
     }
 }

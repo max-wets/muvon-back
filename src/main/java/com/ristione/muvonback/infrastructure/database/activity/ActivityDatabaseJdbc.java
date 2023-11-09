@@ -31,4 +31,10 @@ public class ActivityDatabaseJdbc implements ActivityPersistence {
         entityManager.persist(activityDatabase);
         return activityMapper.toActivity(activityDatabase);
     }
+
+    @Override
+    public void delete(Long activityId) {
+        log.debug("Deleting activity: " + activityId);
+        activityRepository.deleteById(activityId);
+    }
 }
