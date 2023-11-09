@@ -8,6 +8,7 @@ import com.ristione.muvonback.domain.entities.activity.Activity;
 import com.ristione.muvonback.domain.entities.activity.ActivitySourceType;
 import com.ristione.muvonback.domain.entities.activity_type.ActivityType;
 import com.ristione.muvonback.domain.use_cases.activity_type.ActivityTypePersistence;
+import com.ristione.muvonback.infrastructure.database.activity.ActivityMapper;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,9 @@ import static com.ristione.muvonback.domain.entities.activity.ActivityError.NO_A
 public class CreateActivity {
 
     ActivityTypePersistence activityTypePersistence;
+    ActivityPersistence activityPersistence;
     private final AdditionalInfoInputMapper additionalInfoInputMapper;
+    private final ActivityMapper activityMapper;
 
     private static final Logger LOGGER =
             LoggerFactory.getLogger(CreateActivity.class);
@@ -53,6 +56,14 @@ public class CreateActivity {
                             .additionalInfo(additionalInfoInputMapper.toAdditionalInfo(activityInput.getAdditionalInfo()))
                             .summary(activityInput.getSummary())
                             .build();
+            Activity savedActivity = activityPersistence.create(activityMapper.toActivityDatabase(activity));
+
+            return new CreationResultObject<>(
+                    savedActivity.getId().toString(),
+                    savedActivity,
+                    List.of(),
+                    List.of()
+            );
         }
         return new CreationResultObject<>(
                 null,

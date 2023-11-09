@@ -1,6 +1,7 @@
 package com.ristione.muvonback.infrastructure.database.activity_type;
 
 import com.ristione.muvonback.domain.entities.activity_type.ActivityType;
+import com.ristione.muvonback.domain.entities.activity_type.ActivityTypeEnum;
 import com.ristione.muvonback.domain.use_cases.activity_type.ActivityTypePersistence;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ public class ActivityTypeDatabaseJdbc implements ActivityTypePersistence {
     @Override
     public Optional<ActivityType> findByName(String activityTypeName) {
         return activityTypeRepository
-                .findByKey(activityTypeName)
+                .findByKey(ActivityTypeEnum.valueOf(activityTypeName))
                 .map(activityTypeMapper::toActivityType);
     }
 }

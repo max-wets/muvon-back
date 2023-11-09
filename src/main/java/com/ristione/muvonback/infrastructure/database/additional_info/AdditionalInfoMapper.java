@@ -12,4 +12,11 @@ public class AdditionalInfoMapper {
                 .highlights(additionalInfoDatabase.getHighlights())
                 .build();
     }
+
+    public AdditionalInfoDatabase toAdditionalInfoDatabase(AdditionalInfo additionalInfo) {
+        return AdditionalInfoDatabase.builder()
+                .description(additionalInfo.getDescription())
+                .highlights(additionalInfo.getHighlights())
+                .build();
+    }
 }

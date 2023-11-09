@@ -10,6 +10,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ActivityType {
+    private Long id;
+
     @Enumerated(EnumType.STRING)
     private ActivityTypeEnum key;
 
