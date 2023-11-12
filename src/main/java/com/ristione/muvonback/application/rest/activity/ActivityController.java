@@ -12,6 +12,7 @@ import com.ristione.muvonback.domain.entities.activity.ActivityWriteResult;
 import com.ristione.muvonback.domain.use_cases.activity.CreateActivity;
 import com.ristione.muvonback.domain.use_cases.activity.DeleteActivity;
 import com.ristione.muvonback.domain.use_cases.activity.RetrieveActivity;
+import com.ristione.muvonback.domain.use_cases.picture.GeneratePicture;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,6 +24,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -38,6 +40,7 @@ public class ActivityController {
     private final DeleteActivity deleteActivity;
     private final ResponseApiMapper responseApiMapper;
     private final ResponseApiActivityMapper responseApiActivityMapper;
+    private final GeneratePicture generatePicture;
 
     @GetMapping("/{activity-id}")
     @Operation(summary = "Get a complete activity card from its ID")
@@ -104,6 +107,29 @@ public class ActivityController {
             return ResponseEntity.status(BAD_REQUEST).body(activityWriteResultApi);
         } else {
             return ResponseEntity.ok(activityWriteResultApi);
+        }
+    }
+
+    @PostMapping("/{activity-id}/upload")
+    @Operation(description = "Upload a picture for an activity")
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "The picture has been successfully uploaded"
+            ),
+            @ApiResponse(responseCode = "400", description = "Picture upload failed")
+    })
+    public ResponseEntity<ResponseApi> uploadPhoto(
+            @PathVariable("activity-id") @Parameter(required = true) Long activityId,
+            @RequestParam("file") MultipartFile file
+    ) {
+        CreationResultObject<?> result = generatePicture.run(activityId, file);
+        ResponseApi responseApi = responseApiMapper.toResponseApi(result);
+
+        if (responseApi.hasErrors()) {
+            return ResponseEntity.status(BAD_REQUEST).body(responseApi);
+        } else {
+            return ResponseEntity.status(CREATED).body(responseApi);
         }
     }
 }

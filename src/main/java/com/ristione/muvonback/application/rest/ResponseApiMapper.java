@@ -18,6 +18,11 @@ public class ResponseApiMapper {
                     creationResultObject.warnings().stream().map(WarningApi::new).toList()
             );
         }
-        return new ResponseApi();
+        return new ResponseApi(
+                creationResultObject.activityId(),
+                null,
+                creationResultObject.errors().stream().map(ErrorApi::new).toList(),
+                creationResultObject.warnings().stream().map(WarningApi::new).toList()
+        );
     }
 }
